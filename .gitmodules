@@ -1,0 +1,3 @@
+[submodule "src/shoco"]
+	path = src/shoco
+	url = https://github.com/Ed-von-Schleck/shoco

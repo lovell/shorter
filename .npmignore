@@ -1,0 +1,16 @@
+.travis.yml
+build
+node_modules
+test
+src/shoco/generate_compressor_model.py
+src/shoco/Makefile
+src/shoco/models
+src/shoco/pre.js
+src/shoco/README.md
+src/shoco/shoco-bin.c
+src/shoco/shoco.html
+src/shoco/shoco.js
+src/shoco/shoco_table.h
+src/shoco/test_input.c
+src/shoco/tests.c
+src/shoco/training_data

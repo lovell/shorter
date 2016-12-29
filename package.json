@@ -1,0 +1,37 @@
+{
+  "name": "shorter",
+  "version": "0.0.1",
+  "author": "Lovell Fuller <npm@lovell.info>",
+  "description": "Node.js module to very quickly (de)compress short strings. Uses SIMD and the entropy encoding features of shoco.",
+  "scripts": {
+    "test": "semistandard && node test/unit"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lovell/shorter"
+  },
+  "keywords": [
+    "string",
+    "compression",
+    "decompression",
+    "entropy",
+    "encoding",
+    "shoco",
+    "smaz",
+    "short"
+  ],
+  "dependencies": {
+    "nan": "^2.5.0"
+  },
+  "devDependencies": {
+    "semistandard": "^9.2.1"
+  },
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=4"
+  },
+  "semistandard": {
+    "ignore": "src/"
+  }
+}
