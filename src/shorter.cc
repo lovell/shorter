@@ -18,9 +18,9 @@ NAN_METHOD(compressBuffer) {
 
   if (outputLengthMax > outputLength) {
     info.GetReturnValue().Set(Nan::CopyBuffer(output, outputLength).ToLocalChecked());
-    delete output;
+    delete[] output;
   } else {
-    delete output;
+    delete[] output;
     Nan::ThrowError(shorterErrorMemory);
   }
 }
@@ -36,9 +36,9 @@ NAN_METHOD(compressString) {
 
   if (outputLengthMax > outputLength) {
     info.GetReturnValue().Set(Nan::CopyBuffer(output, outputLength).ToLocalChecked());
-    delete output;
+    delete[] output;
   } else {
-    delete output;
+    delete[] output;
     Nan::ThrowError(shorterErrorMemory);
   }
 }
@@ -55,9 +55,9 @@ NAN_METHOD(decompress) {
 
   if (outputLengthMax > outputLength) {
     info.GetReturnValue().Set(Nan::New(output, outputLength).ToLocalChecked());
-    delete output;
+    delete[] output;
   } else {
-    delete output;
+    delete[] output;
     Nan::ThrowError(shorterErrorMemory);
   }
 }
