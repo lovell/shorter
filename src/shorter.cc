@@ -4,7 +4,9 @@
 #include "nan.h"
 #include "shoco/shoco.h"
 
-NAN_METHOD(compress) {
+static const char shorterErrorMemory[] = "Memory allocated was shorter than necessary";
+
+NAN_METHOD(compressBuffer) {
   Nan::HandleScope();
 
   const v8::Local<v8::Object> input = info[0].As<v8::Object>();
@@ -19,7 +21,25 @@ NAN_METHOD(compress) {
     delete output;
   } else {
     delete output;
-    Nan::ThrowError("Memory allocated for compressed result was shorter than necessary");
+    Nan::ThrowError(shorterErrorMemory);
+  }
+}
+
+NAN_METHOD(compressString) {
+  Nan::HandleScope();
+
+  const size_t inputLength = Nan::Utf8String(info[0]).length();
+  const size_t outputLengthMax = inputLength + 1;
+
+  char *output = new char[outputLengthMax];
+  size_t outputLength = shoco_compress(*Nan::Utf8String(info[0]), inputLength, output, outputLengthMax);
+
+  if (outputLengthMax > outputLength) {
+    info.GetReturnValue().Set(Nan::CopyBuffer(output, outputLength).ToLocalChecked());
+    delete output;
+  } else {
+    delete output;
+    Nan::ThrowError(shorterErrorMemory);
   }
 }
 
@@ -34,17 +54,19 @@ NAN_METHOD(decompress) {
   size_t outputLength = shoco_decompress(node::Buffer::Data(input), inputLength, output, outputLengthMax);
 
   if (outputLengthMax > outputLength) {
-    info.GetReturnValue().Set(Nan::CopyBuffer(output, outputLength).ToLocalChecked());
+    info.GetReturnValue().Set(Nan::New(output, outputLength).ToLocalChecked());
     delete output;
   } else {
     delete output;
-    Nan::ThrowError("Memory allocated for decompressed result was shorter than necessary");
+    Nan::ThrowError(shorterErrorMemory);
   }
 }
 
 NAN_MODULE_INIT(init) {
-  Nan::Set(target, Nan::New("compress").ToLocalChecked(),
-    Nan::GetFunction(Nan::New<v8::FunctionTemplate>(compress)).ToLocalChecked());
+  Nan::Set(target, Nan::New("compressBuffer").ToLocalChecked(),
+    Nan::GetFunction(Nan::New<v8::FunctionTemplate>(compressBuffer)).ToLocalChecked());
+  Nan::Set(target, Nan::New("compressString").ToLocalChecked(),
+    Nan::GetFunction(Nan::New<v8::FunctionTemplate>(compressString)).ToLocalChecked());
   Nan::Set(target, Nan::New("decompress").ToLocalChecked(),
     Nan::GetFunction(Nan::New<v8::FunctionTemplate>(decompress)).ToLocalChecked());
 }

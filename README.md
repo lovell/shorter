@@ -1,10 +1,21 @@
 # shorter
 
-Node.js module to very quickly compress short strings.
+Node.js module to very quickly (de)compress short strings.
 
-Uses SIMD and the entropy encoding features of
+Uses the SIMD-powered entropy encoding features of
 [Christian Schramm](https://github.com/Ed-von-Schleck)'s
 [shoco](http://ed-von-schleck.github.io/shoco/).
+
+Encodes ASCII-compatible characters (`0x00` to `0x7F`)
+whilst maintaining full UTF-8 support.
+
+The byte length of the compressed output
+will never exceed the byte length of the input.
+
+Works well with strings up to around 100 characters
+and is particularly well-suited to e-mail addresses and URLs.
+
+Compression and decompression is typically 10x faster than zlib deflate.
 
 ## Installation
 
@@ -20,37 +31,38 @@ const shorter = require('shorter');
 
 ```javascript
 const encoded = shorter.compress('test');
-console.log(encoded); // 'ș'
+console.log(Buffer.isBuffer(encoded)); // true
+console.log(encoded.length);           // 2
+console.log(encoded.toString('hex'));  // 'c899'
 ```
 
 ```javascript
-const encoded = shorter.compress(new Buffer('test'));
-console.log(encoded); // 'ș'
+const encoded = shorter.compress(Buffer.from('test'));
+console.log(Buffer.isBuffer(encoded)); // true
+console.log(encoded.length);           // 2
+console.log(encoded.toString('hex'));  // 'c899'
 ```
 
 ```javascript
-const decoded = shorter.decompress('ș');
-console.log(decoded); // 'test'
-```
-
-```javascript
-const decoded = shorter.decompress(new Buffer('ș'));
-console.log(decoded); // 'test'
+const decoded = shorter.decompress(Buffer.from('c899', 'hex'));
+console.log(typeof decoded); // 'string'
+console.log(decoded.length); // 4
+console.log(decoded);        // 'test'
 ```
 
 ## API
 
 ### compress(input)
 
-* `input` is the Buffer or String to compress.
+* `input` is the `Buffer` or `String` to compress.
 
-Returns the compressed/encoded String.
+Returns the compressed/encoded `Buffer`.
 
-#### decompress(input)
+### decompress(input)
 
-* `input` is the Buffer or String to decompress.
+* `input` is the `Buffer` to decompress.
 
-Returns the decompressed/decoded String.
+Returns the decompressed/decoded `String`.
 
 ## Testing
 
@@ -62,7 +74,7 @@ npm test
 
 ## Licence
 
-Copyright 2016 Lovell Fuller
+Copyright 2016, 2017 Lovell Fuller
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

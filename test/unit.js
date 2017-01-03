@@ -24,18 +24,23 @@ readline.createInterface({
   output: process.stdout,
   terminal: false
 }).on('line', function (line) {
-  const test = new Buffer(line.trim());
-  if (test.length > 0) {
+  const testString = line.trim();
+  const testBuffer = new Buffer(testString);
+  if (testString.length > 0) {
     // Compress/encode
-    const encoded = shorter.compress(test);
-    assert.strictEqual('object', typeof encoded);
-    assert.strictEqual(true, Buffer.isBuffer(encoded));
-    assert.strictEqual(true, encoded.length <= test.length);
+    const encodedString = shorter.compress(testString);
+    assert.strictEqual('object', typeof encodedString);
+    assert.strictEqual(true, Buffer.isBuffer(encodedString));
+    assert.strictEqual(true, encodedString.length <= testString.length);
+    const encodedBuffer = shorter.compress(testBuffer);
+    assert.strictEqual('object', typeof encodedBuffer);
+    assert.strictEqual(true, Buffer.isBuffer(encodedBuffer));
+    assert.strictEqual(true, encodedBuffer.length <= testBuffer.length);
+    assert.strictEqual(true, encodedBuffer.equals(encodedString));
     // Decompress/decode
-    const decoded = shorter.decompress(encoded);
-    assert.strictEqual('object', typeof decoded);
-    assert.strictEqual(true, Buffer.isBuffer(decoded));
-    assert.strictEqual(test.length, decoded.length);
-    assert.strictEqual(true, test.equals(decoded));
+    const decoded = shorter.decompress(encodedBuffer);
+    assert.strictEqual('string', typeof decoded);
+    assert.strictEqual(testString.length, decoded.length);
+    assert.strictEqual(testString, decoded);
   }
 });
