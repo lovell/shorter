@@ -13,9 +13,15 @@
     'cflags_cc': [
       '-fexceptions',
       '-Wall',
-      '-march=native',
       '-Ofast',
       '-flto',
+    ],
+    'conditions': [
+      ['target_arch!="arm"', {
+        'cflags_cc': [
+          '-march=native'
+        ]
+      }]
     ],
     'xcode_settings': {
       'OTHER_CPLUSPLUSFLAGS': [

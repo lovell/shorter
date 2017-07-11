@@ -15,7 +15,7 @@ const deflateRawSync = function (input, level) {
   console.log(`Original ${length}`);
 
   const inputString = input.substring(0, length);
-  const inputBuffer = new Buffer(inputString);
+  const inputBuffer = Buffer.from(inputString);
 
   // Compressed length
   [1, 6, 9].forEach(function (level) {

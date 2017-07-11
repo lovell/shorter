@@ -25,7 +25,7 @@ readline.createInterface({
   terminal: false
 }).on('line', function (line) {
   const testString = line.trim();
-  const testBuffer = new Buffer(testString);
+  const testBuffer = Buffer.from(testString);
   if (testString.length > 0) {
     // Compress/encode
     const encodedString = shorter.compress(testString);
