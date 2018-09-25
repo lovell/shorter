@@ -29,28 +29,28 @@ const deflateRawSync = function (input, level) {
 
   // Compression performance
   (new Benchmark.Suite())
-  .add('deflate level 6 string', function () {
-    deflateRawSync(inputString, 6);
-  })
-  .add('deflate level 6 buffer', function () {
-    deflateRawSync(inputBuffer, 6);
-  })
-  .add('deflate level 9 string', function () {
-    deflateRawSync(inputString, 9);
-  })
-  .add('deflate level 9 buffer', function () {
-    deflateRawSync(inputBuffer, 9);
-  })
-  .add('smaz string', function () {
-    smaz.compress(inputString);
-  })
-  .add('shorter string', function () {
-    shorter.compress(inputString);
-  })
-  .add('shorter buffer', function () {
-    shorter.compress(inputBuffer);
-  })
-  .on('cycle', function (event) {
-    console.log(String(event.target));
-  }).run();
+    .add('deflate level 6 string', function () {
+      deflateRawSync(inputString, 6);
+    })
+    .add('deflate level 6 buffer', function () {
+      deflateRawSync(inputBuffer, 6);
+    })
+    .add('deflate level 9 string', function () {
+      deflateRawSync(inputString, 9);
+    })
+    .add('deflate level 9 buffer', function () {
+      deflateRawSync(inputBuffer, 9);
+    })
+    .add('smaz string', function () {
+      smaz.compress(inputString);
+    })
+    .add('shorter string', function () {
+      shorter.compress(inputString);
+    })
+    .add('shorter buffer', function () {
+      shorter.compress(inputBuffer);
+    })
+    .on('cycle', function (event) {
+      console.log(String(event.target));
+    }).run();
 });

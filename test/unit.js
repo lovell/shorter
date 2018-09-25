@@ -44,3 +44,7 @@ readline.createInterface({
     assert.strictEqual(testString, decoded);
   }
 });
+
+// Verify: multi-byte UTF-8 characters
+const multibyte = '经济自由与政治自由的关系';
+assert.strictEqual(multibyte.length * 6, shorter.compress(multibyte).length);

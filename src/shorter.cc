@@ -24,13 +24,16 @@ NAN_METHOD(compressBuffer) {
 
   const v8::Local<v8::Object> input = info[0].As<v8::Object>();
   const size_t inputLength = node::Buffer::Length(input);
-  const size_t outputLengthMax = inputLength + 1;
+  const size_t outputLengthMax = inputLength * 2 + 1;
 
   char *output = new char[outputLengthMax];
-  size_t outputLength = shoco_compress(node::Buffer::Data(input), inputLength, output, outputLengthMax);
+  size_t outputLength = shoco_compress(node::Buffer::Data(input),
+    inputLength, output, outputLengthMax);
 
   if (outputLengthMax > outputLength) {
-    info.GetReturnValue().Set(Nan::CopyBuffer(output, outputLength).ToLocalChecked());
+    info
+      .GetReturnValue()
+      .Set(Nan::CopyBuffer(output, outputLength).ToLocalChecked());
     delete[] output;
   } else {
     delete[] output;
@@ -42,13 +45,16 @@ NAN_METHOD(compressString) {
   Nan::HandleScope();
 
   const size_t inputLength = Nan::Utf8String(info[0]).length();
-  const size_t outputLengthMax = inputLength + 1;
+  const size_t outputLengthMax = inputLength * 2 + 1;
 
   char *output = new char[outputLengthMax];
-  size_t outputLength = shoco_compress(*Nan::Utf8String(info[0]), inputLength, output, outputLengthMax);
+  size_t outputLength = shoco_compress(*Nan::Utf8String(info[0]),
+    inputLength, output, outputLengthMax);
 
   if (outputLengthMax > outputLength) {
-    info.GetReturnValue().Set(Nan::CopyBuffer(output, outputLength).ToLocalChecked());
+    info
+      .GetReturnValue()
+      .Set(Nan::CopyBuffer(output, outputLength).ToLocalChecked());
     delete[] output;
   } else {
     delete[] output;
@@ -64,10 +70,13 @@ NAN_METHOD(decompress) {
   const size_t outputLengthMax = inputLength * 3;
 
   char *output = new char[outputLengthMax];
-  size_t outputLength = shoco_decompress(node::Buffer::Data(input), inputLength, output, outputLengthMax);
+  size_t outputLength = shoco_decompress(node::Buffer::Data(input),
+    inputLength, output, outputLengthMax);
 
   if (outputLengthMax > outputLength) {
-    info.GetReturnValue().Set(Nan::New(output, outputLength).ToLocalChecked());
+    info
+      .GetReturnValue()
+      .Set(Nan::New(output, outputLength).ToLocalChecked());
     delete[] output;
   } else {
     delete[] output;

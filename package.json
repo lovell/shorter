@@ -1,6 +1,6 @@
 {
   "name": "shorter",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Lovell Fuller <npm@lovell.info>",
   "description": "Node.js module to very quickly (de)compress short strings. Uses the SIMD-powered entropy encoding features of shoco.",
   "scripts": {
@@ -23,11 +23,11 @@
     "simd"
   ],
   "dependencies": {
-    "nan": "^2.6.2"
+    "nan": "^2.11.0"
   },
   "devDependencies": {
-    "cc": "^1.0.1",
-    "semistandard": "^11.0.0"
+    "cc": "^1.0.2",
+    "semistandard": "^12.0.1"
   },
   "license": "Apache-2.0",
   "engines": {
@@ -37,7 +37,7 @@
     "ignore": "src/"
   },
   "cc": {
-    "linelength": "120",
+    "linelength": "90",
     "ignore": [
       "src/shoco/**"
     ]

@@ -2,6 +2,7 @@
 bench
 build
 node_modules
+package-lock.json
 test
 src/shoco/generate_compressor_model.py
 src/shoco/Makefile

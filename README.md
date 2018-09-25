@@ -9,7 +9,7 @@ Uses the SIMD-powered entropy encoding features of
 Encodes ASCII-compatible characters (`0x00` to `0x7F`)
 whilst maintaining full UTF-8 support.
 
-The byte length of the compressed output
+For ASCII-only strings, the byte length of the compressed output
 will never exceed the byte length of the input.
 
 Works well with strings up to around 100 characters
