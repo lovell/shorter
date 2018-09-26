@@ -19,6 +19,7 @@ environment:
 install:
   - ps: Install-Product node $env:nodejs_version $env:nodejs_arch
   - npm install -g npm
+  - git submodule update --init --recursive
   - npm install
 test_script:
   - npm test

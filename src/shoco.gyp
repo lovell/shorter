@@ -2,9 +2,7 @@
   'targets': [{
     'target_name': 'shoco',
     'type': 'static_library',
-    'sources': [
-      'shoco/shoco.c'
-    ],
+    'sources': ['shoco/shoco.c'],
     'cflags': [
       '-std=c99',
       '-fexceptions',
@@ -20,6 +18,12 @@
         '-march=native',
         '-Ofast'
       ]
+    },
+    'msvs_settings': {
+      'VCCLCompilerTool': {
+        'ExceptionHandling': 1,
+        'DisableSpecificWarnings': ['4244']
+      }
     }
   }]
 }

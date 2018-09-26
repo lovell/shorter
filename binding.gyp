@@ -1,15 +1,9 @@
 {
   'targets': [{
     'target_name': 'shorter',
-    'sources': [
-      'src/shorter.cc'
-    ],
-    'dependencies': [
-      'src/shoco.gyp:shoco'
-    ],
-    'include_dirs': [
-      '<!(node -e "require(\'nan\')")'
-    ],
+    'sources': ['src/shorter.cc'],
+    'dependencies': ['src/shoco.gyp:shoco'],
+    'include_dirs': ['<!(node -e "require(\'nan\')")'],
     'cflags_cc': [
       '-fexceptions',
       '-Wall',
@@ -18,9 +12,7 @@
     ],
     'conditions': [
       ['target_arch!="arm"', {
-        'cflags_cc': [
-          '-march=native'
-        ]
+        'cflags_cc': ['-march=native']
       }]
     ],
     'xcode_settings': {
