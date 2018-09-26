@@ -1,4 +1,6 @@
+.gitmodules
 .travis.yml
+appveyor.yml
 bench
 build
 node_modules
@@ -8,7 +10,6 @@ src/shoco/generate_compressor_model.py
 src/shoco/Makefile
 src/shoco/models
 src/shoco/pre.js
-src/shoco/README.md
 src/shoco/shoco-bin.c
 src/shoco/shoco.html
 src/shoco/shoco.js
